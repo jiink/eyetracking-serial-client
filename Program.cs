@@ -9,7 +9,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
         static void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             // Show all the incoming data in the port's buffer
-            Console.WriteLine(port.ReadExisting());
+            Console.Write(port.ReadExisting());
         }
         static void Main(string[] args)
         {
@@ -17,7 +17,19 @@ namespace MyApp // Note: actual namespace depends on the project name.
             port.Handshake = Handshake.None;
             port.DataReceived += port_DataReceived;
             port.Open();
-            Console.ReadLine();
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+
+                    if (key.Key == ConsoleKey.Q)
+                        break; // Quit the program
+
+                    char characterToSend = key.KeyChar;
+                    port.Write(characterToSend.ToString());
+                }
+            }
         }
 
         
