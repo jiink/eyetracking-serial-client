@@ -27,13 +27,20 @@ namespace MyApp // Note: actual namespace depends on the project name.
             {
                 if (coord.StartsWith("X_Location"))
                 {
+                    try
+                    { 
                     int xLoc = int.Parse(coord.Split(':')[1]);
                     x = (int)(xLoc * ((float)windowWidth / 96.0));
+                    } catch { }
                 }
                 else if (coord.StartsWith("Y_Location"))
                 {
-                    int yLoc = int.Parse(coord.Split(':')[1]);
-                    y = (int)(yLoc * ((float)windowHeight / 96.0));
+                    try
+                    {
+                        int yLoc = int.Parse(coord.Split(':')[1]);
+                        y = (int)(yLoc * ((float)windowHeight / 96.0));
+                    }   catch { }
+                    
                 }
             }
         }
