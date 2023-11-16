@@ -11,6 +11,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
         static int windowHeight = 640;
         static int x = 0;
         static int y = 0;
+        static int millis = 0;
         static void drawLocation(int x, int y)
         {
             Raylib.DrawCircle(x, y, 32, Color.RED);
@@ -25,7 +26,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
             foreach (string coord in coordinates)
             {
-                if (coord.StartsWith("X_Location"))
+                if (coord.StartsWith("X"))
                 {
                     try
                     { 
@@ -33,7 +34,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     x = (int)(xLoc * ((float)windowWidth / 96.0));
                     } catch { }
                 }
-                else if (coord.StartsWith("Y_Location"))
+                else if (coord.StartsWith("Y"))
                 {
                     try
                     {
@@ -41,6 +42,13 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         y = (int)(yLoc * ((float)windowHeight / 96.0));
                     }   catch { }
                     
+                }
+                else if (coord.StartsWith("ms"))
+                {
+                    try
+                    {
+                        millis = int.Parse(coord.Split(':')[1]);
+                    } catch { }
                 }
             }
         }
@@ -77,6 +85,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 
                 drawLocation(x, y);
                 Raylib.DrawText($"pos: {x}, {y}", 12, 30, 20, Color.BLUE);
+                Raylib.DrawText($"ms: {millis}", 12, 50, 20, Color.BLACK);
 
                 Raylib.EndDrawing();
             }
