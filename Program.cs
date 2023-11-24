@@ -6,7 +6,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
-        static SerialPort port = new SerialPort("COM9", 115200, Parity.None, 8, StopBits.One);
+        static SerialPort port = new SerialPort("COM4", 115200, Parity.None, 8, StopBits.One);
         static int windowWidth = 640;
         static int windowHeight = 640;
         static int x = 0;
@@ -30,16 +30,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 {
                     try
                     { 
-                    int xLoc = int.Parse(coord.Split(':')[1]);
-                    x = (int)(xLoc * ((float)windowWidth / 96.0));
+                    float xLoc = float.Parse(coord.Split(':')[1]);
+                    x = (int)(xLoc * 640/2 + 640/2);
                     } catch { }
                 }
                 else if (coord.StartsWith("Y"))
                 {
                     try
                     {
-                        int yLoc = int.Parse(coord.Split(':')[1]);
-                        y = (int)(yLoc * ((float)windowHeight / 96.0));
+                        float yLoc = float.Parse(coord.Split(':')[1]);
+                        y = (int)(yLoc * 640 / 2 + 640 / 2);
                     }   catch { }
                     
                 }
